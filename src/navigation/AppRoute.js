@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
-    Setting
+    Setting,
+    FlatlistNative,
+    SetcionlistNative
 } from '../snreens/app';
 import { colors } from '../theme';
 import TabRoutes from './TabRoutes';
@@ -38,6 +40,30 @@ const AppRoute = () => {
                 <AppStack.Screen
                     name='user/setting'
                     component={Setting}
+                    options={{
+                        statusBarHidden: false,
+                        statusBarAnimation: "slide",
+                        statusBarStyle: "dark",
+                        statusBarColor: colors?.background?.main,
+                        statusBarTranslucent: true,
+                        // orientation:"landscape"
+                    }}
+                />
+                <AppStack.Screen
+                    name='app/flatlist'
+                    component={FlatlistNative}
+                    options={{
+                        statusBarHidden: false,
+                        statusBarAnimation: "slide",
+                        statusBarStyle: "dark",
+                        statusBarColor: colors?.background?.main,
+                        statusBarTranslucent: true,
+                        // orientation:"landscape"
+                    }}
+                />
+                <AppStack.Screen
+                    name='app/sectionlist'
+                    component={SetcionlistNative}
                     options={{
                         statusBarHidden: false,
                         statusBarAnimation: "slide",
