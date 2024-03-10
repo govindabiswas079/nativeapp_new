@@ -20,7 +20,9 @@ const FlatlistNative = () => {
     });
 
     const getTags = () => {
-        Axios.get(`https://api-primedeveloper.vercel.app/admin/api/admin/tags?pageSize=${values?.pageSize}&currentPage=${values?.currentPage}`)
+        const controller = new AbortController();
+
+        Axios.get(`https://api-primedeveloper.vercel.app/admin/api/admin/tags?pageSize=${values?.pageSize}&currentPage=${values?.currentPage}`, { signal: controller.signal })
             .then((response) => {
                 if (response.status === 200) {
                     setValuse({
@@ -37,6 +39,12 @@ const FlatlistNative = () => {
             .finally(() => {
                 setLoader(false)
             })
+
+        console.log(controller)
+
+        return () => {
+            controller.abort()
+        }
     };
 
     useEffect(() => {
@@ -62,10 +70,14 @@ const FlatlistNative = () => {
                         setLoader(true)
                         setValuse({ ...values, currentPage: (values?.currentPage + 1) })
                         getTags()
+                        console.log(values?.currentPage)
                     }
                 }}
+                onMomentumScrollEnd={() => {
+                    console.log("call")
+                }}
                 numColumns={2}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={0.01}
                 data={formatData(data, 2)}
                 // data={data?.length % 2 === 1 ? [...data, { empty: true }] : data}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
@@ -74,7 +86,7 @@ const FlatlistNative = () => {
                 // renderItem={({ item }) => <RenderItem item={item} />}
                 ListFooterComponent={() => (
                     loader &&
-                    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                    <View style={{ paddingVertical: 10, alignItems: "center", justifyContent: "center" }}>
                         <ActivityIndicator size={"large"} color={colors?.primary?.main} />
                     </View>
                 )}
