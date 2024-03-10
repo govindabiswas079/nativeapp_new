@@ -51,6 +51,7 @@ export const colors = {
     },
     common: {
         white: "#FFFFFF",
-        black: "#212B36"
+        black: "#212B36",
+        transparent: "transparent",
     }
 }
