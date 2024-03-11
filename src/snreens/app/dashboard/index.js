@@ -9,8 +9,10 @@ import SyntaxHighlighter from 'react-native-syntax-highlighter';
 import { solarizedDark, monoBlue, schoolBook } from 'react-syntax-highlighter/styles/prism';
 import { atelierCaveDark } from 'react-syntax-highlighter/styles/hljs';
 import { codesyntaxhilight } from '../../../utils/codehilight';
+import { useAuthContext } from '../../../context/AuthContext';
 
 const Dashboard = () => {
+  const { state, dispatch } = useAuthContext()
   const navigation = useNavigation();
   const imageShare = require('../../../asset/image/istockphoto.jpg');
 
@@ -18,6 +20,8 @@ const Dashboard = () => {
     Clipboard.setString(codesyntaxhilight);
     console.log("Code copied to clipboard!")
   };
+
+  console.log("state ==>", state)
 
   const onShare = async () => {
     try {
@@ -48,6 +52,11 @@ const Dashboard = () => {
 
         <Button onPress={() => { copyToClipboard() }} title='Copy Code' />
         <Button onPress={() => { onShare() }} title='Share Code' />
+
+        {/* <View style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 10 }}> */}
+          <Button onPress={() => { dispatch({ type: "INCREMENT" }) }} title='INCREMENT' />
+          <Button onPress={() => { dispatch({ type: "DECREMENT" }) }} title='DECREMENT' />
+        {/* </View> */}
 
         {/* <Text style={{ color: "red" }} dangerouslySetInnerHTML={{ __html: `<h1>prem</h1>` }} >
           {`

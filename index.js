@@ -12,6 +12,7 @@ import { Fragment } from 'react';
 import { store } from './src/store';
 import { colors } from './src/theme';
 import { linking } from './src/utils/linking';
+import { AuthContextProvider } from './src/context/AuthContext';
 
 const Main = () => {
     return (
@@ -23,7 +24,9 @@ const Main = () => {
                 </View>
             }>
                 <Provider store={store}>
-                    <App />
+                    <AuthContextProvider>
+                        <App />
+                    </AuthContextProvider>
                 </Provider>
             </NavigationContainer>
         </SafeAreaProvider>
